@@ -38,11 +38,13 @@ class Database:
     #(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((جلب جميع العناصر من الجدول))))))))))))))))))))))))))))))))))))))))))
     def get_all_items(self):
         self.curser.execute('SELECT * FROM debt')
+        self.conn.commit()
         return self.curser.fetchall()
     
     #((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((جلب عنصر من التجدول )))))))))))))))))))))))))))))))))))))))))))))))))))))
     def get_item(self,item_id):
         self.curser.execute('SELECT FROM debt id=?',(item_id))
+        self.conn.commit()
         return self.curser.fetchone()
     
     #((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((التعديل علي العناصر المخزنة في الجدول)))))))))))))))))))))))))))))))))))))))))))))))))))))
@@ -57,8 +59,11 @@ class Database:
                             )
         self.conn.commit()
     def delete_item(self,id):
+        
         self.curser.execute('DELETE FROM debt WHERE id =?',(int(id.value),))
         self.conn.commit()
+        
+        
     
         
 #(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((كلاس البطافات )))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
@@ -107,7 +112,7 @@ class LoginPage:
         self.view = View(
             "/",
             [
-                Image(src='/home/kali/Desktop/python/test/fletapp/testall/loginhaking.jpg',width=370,),
+                Image(src='/loginhaking.jpg',width=370,),
                 self.username,
                 self.password,
                 
@@ -243,7 +248,10 @@ class Show_Debt_Add_Page:
 
                 ]),
                 Row([
-                    self.delet,self.bsharch
+                    self.delet
+                ]),
+                Row([
+                    self.bsharch
                 ]),
                 Column(cards),
                 
